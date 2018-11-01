@@ -3,7 +3,7 @@ import user from './user'
 import auth from './auth'
 import passwordReset from './password-reset'
 import guest from './guest'
-
+import table from './table'
 const router = new Router()
 
 /**
@@ -33,5 +33,5 @@ router.use('/users', user)
 router.use('/auth', auth)
 router.use('/password-resets', passwordReset)
 router.use('/guests', guest)
-
+router.use('/tables', table)
 export default router

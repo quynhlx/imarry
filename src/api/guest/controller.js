@@ -34,3 +34,12 @@ export const destroy = ({ params }, res, next) =>
     .then((guest) => guest ? guest.remove() : null)
     .then(success(res, 204))
     .catch(next)
+
+export const scan = ({ query }, res, next) => {
+  console.log(query)
+  Guest.findOne({code: query.code})
+    .then(notFound(res))
+    .then((guest) => guest ? guest.view() : null)
+    .then(success(res))
+    .catch(next)
+}

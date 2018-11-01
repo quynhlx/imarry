@@ -17,6 +17,13 @@
 	- [Submit password](#submit-password)
 	- [Verify token](#verify-token)
 	
+- [Table](#table)
+	- [Create table](#create-table)
+	- [Delete table](#delete-table)
+	- [Retrieve table](#retrieve-table)
+	- [Retrieve tables](#retrieve-tables)
+	- [Update table](#update-table)
+	
 - [User](#user)
 	- [Create user](#create-user)
 	- [Delete user](#delete-user)
@@ -67,6 +74,7 @@
 | status			| 			|  <p>Guest's status.</p>							|
 | avatar			| 			|  <p>Guest's avatar.</p>							|
 | address			| 			|  <p>Guest's address.</p>							|
+| code			| 			|  <p>Guest's code.</p>							|
 
 ## Delete guest
 
@@ -124,11 +132,12 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>admin access token.</p>							|
-| name			| 			|  <p>Guest's name.</p>							|
-| phoneNumber			| 			|  <p>Guest's phoneNumber.</p>							|
-| status			| 			|  <p>Guest's status.</p>							|
-| avatar			| 			|  <p>Guest's avatar.</p>							|
-| address			| 			|  <p>Guest's address.</p>							|
+| name			| String			|  <p>Guest's name.</p>							|
+| phoneNumber			| String			|  <p>Guest's phoneNumber.</p>							|
+| status			| Number			|  <p>Guest's status.</p>							|
+| avatar			| String			|  <p>Guest's avatar.</p>							|
+| address			| String			|  <p>Guest's address.</p>							|
+| code			| String			|  <p>Guest's code</p>							|
 
 # PasswordReset
 
@@ -165,6 +174,86 @@
 
 	GET /password-resets/:token
 
+
+# Table
+
+## Create table
+
+
+
+	POST /tables
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| name			| 			|  <p>Table's name.</p>							|
+| total			| 			|  <p>Table's total.</p>							|
+| seats			| 			|  <p>Table's seats.</p>							|
+| checkedInSeats			| 			|  <p>Table's checkedInSeats.</p>							|
+
+## Delete table
+
+
+
+	DELETE /tables/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve table
+
+
+
+	GET /tables/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve tables
+
+
+
+	GET /tables
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update table
+
+
+
+	PUT /tables/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| name			| 			|  <p>Table's name.</p>							|
+| total			| 			|  <p>Table's total.</p>							|
+| seats			| 			|  <p>Table's seats.</p>							|
+| checkedInSeats			| 			|  <p>Table's checkedInSeats.</p>							|
 
 # User
 

@@ -2,12 +2,12 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, scan } from './controller'
 import { schema } from './model'
 export Guest, { schema } from './model'
 
 const router = new Router()
-const { name, phoneNumber, status, avatar, address } = schema.tree
+const { name, phoneNumber, status, avatar, address, code } = schema.tree
 
 /**
  * @api {post} /guests Create guest
@@ -20,6 +20,7 @@ const { name, phoneNumber, status, avatar, address } = schema.tree
  * @apiParam status Guest's status.
  * @apiParam avatar Guest's avatar.
  * @apiParam address Guest's address.
+ * @apiParam code Guest's code.
  * @apiSuccess {Object} guest Guest's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Guest not found.
@@ -27,7 +28,7 @@ const { name, phoneNumber, status, avatar, address } = schema.tree
  */
 router.post('/',
   token({ required: true, roles: ['admin'] }),
-  body({ name, phoneNumber, status, avatar, address }),
+  body({ name, phoneNumber, status, avatar, address, code }),
   create)
 
 /**
@@ -45,6 +46,22 @@ router.get('/',
   token({ required: true, roles: ['admin'] }),
   query(),
   index)
+
+/**
+ * @api {get} /tables/:id Retrieve table
+ * @apiName RetrieveTable
+ * @apiGroup Table
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
+ * @apiSuccess {Object} table Table's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Table not found.
+ * @apiError 401 user access only.
+ */
+router.get('/scan',
+  token({ required: true }),
+  query(),
+  scan)
 
 /**
  * @api {get} /guests/:id Retrieve guest
@@ -67,11 +84,12 @@ router.get('/:id',
  * @apiGroup Guest
  * @apiPermission admin
  * @apiParam {String} access_token admin access token.
- * @apiParam name Guest's name.
- * @apiParam phoneNumber Guest's phoneNumber.
- * @apiParam status Guest's status.
- * @apiParam avatar Guest's avatar.
- * @apiParam address Guest's address.
+ * @apiParam {String} name Guest's name.
+ * @apiParam {String} phoneNumber Guest's phoneNumber.
+ * @apiParam {Number} status Guest's status.
+ * @apiParam {String} avatar Guest's avatar.
+ * @apiParam {String} address Guest's address.
+ * @apiParam {String} code Guest's code
  * @apiSuccess {Object} guest Guest's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Guest not found.
@@ -79,7 +97,7 @@ router.get('/:id',
  */
 router.put('/:id',
   token({ required: true, roles: ['admin'] }),
-  body({ name, phoneNumber, status, avatar, address }),
+  body({ name, phoneNumber, status, avatar, address, code }),
   update)
 
 /**
