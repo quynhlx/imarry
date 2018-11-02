@@ -33,7 +33,9 @@ export const show = ({ params }, res, next) =>
 
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Table.findById(params.id)
-    .populate('createdBy', 'seats', 'checkedInSeats')
+    .populate('createdBy')
+    .populate('seats')
+    .populate('checkedInSeats')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'createdBy'))
     .then((table) => table ? Object.assign(table, body).save() : null)

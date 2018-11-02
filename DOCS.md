@@ -21,6 +21,7 @@
 	- [Create table](#create-table)
 	- [Delete table](#delete-table)
 	- [Retrieve table](#retrieve-table)
+	- [Retrieve table by guest](#retrieve-table-by-guest)
 	- [Retrieve tables](#retrieve-tables)
 	- [Update table](#update-table)
 	
@@ -208,6 +209,19 @@
 | access_token			| String			|  <p>user access token.</p>							|
 
 ## Retrieve table
+
+
+
+	GET /tables/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve table by guest
 
 
 
