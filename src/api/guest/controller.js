@@ -8,8 +8,13 @@ export const create = ({ bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Guest.find(query, select, cursor)
-    .then((guests) => guests.map((guest) => guest.view()))
+  Guest.count(query)
+    .then(count => Guest.find(query, select, cursor)
+      .then((guests) => ({
+        count,
+        rows: guests.map((guest) => guest.view())
+      }))
+    )
     .then(success(res))
     .catch(next)
 

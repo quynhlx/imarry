@@ -7,7 +7,7 @@ import { schema } from './model'
 export Guest, { schema } from './model'
 
 const router = new Router()
-const { name, phoneNumber, status, avatar, address, code } = schema.tree
+const { name, phoneNumber, status, avatar, address, code, group } = schema.tree
 
 /**
  * @api {post} /guests Create guest
@@ -28,7 +28,7 @@ const { name, phoneNumber, status, avatar, address, code } = schema.tree
  */
 router.post('/',
   token({ required: true, roles: ['admin'] }),
-  body({ name, phoneNumber, status, avatar, address, code }),
+  body({ name, phoneNumber, status, avatar, address, code, group }),
   create)
 
 /**
@@ -97,7 +97,7 @@ router.get('/:id',
  */
 router.put('/:id',
   token({ required: true, roles: ['admin'] }),
-  body({ name, phoneNumber, status, avatar, address, code }),
+  body({ name, phoneNumber, status, avatar, address, code, group }),
   update)
 
 /**

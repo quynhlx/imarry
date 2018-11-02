@@ -18,6 +18,9 @@ const guestSchema = new Schema({
   },
   code: {
     type: String
+  },
+  group: {
+    type: String
   }
 }, {
   timestamps: true,
@@ -38,6 +41,7 @@ guestSchema.methods = {
       avatar: this.avatar,
       address: this.address,
       code: this.code,
+      group: this.group,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

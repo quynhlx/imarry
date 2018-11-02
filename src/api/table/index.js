@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy, scan } from './controller'
+import { create, index, show, update, destroy, scan, findByGuest } from './controller'
 import { schema } from './model'
 export Table, { schema } from './model'
 
@@ -60,6 +60,21 @@ router.get('/',
 router.get('/:id',
   token({ required: true }),
   show)
+
+/**
+ * @api {get} /tables/:id Retrieve table by guest
+ * @apiName RetrieveTableByGuest
+ * @apiGroup Table
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
+ * @apiSuccess {Object} table Table's data.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Table not found.
+ * @apiError 401 user access only.
+ */
+router.get('/guest/:id',
+  token({ required: true }),
+  findByGuest)
 
 /**
  * @api {put} /tables/:id Update table

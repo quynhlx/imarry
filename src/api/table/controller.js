@@ -23,7 +23,9 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Table.findById(params.id)
-    .populate('createdBy', 'seats', 'checkedInSeats')
+    .populate('createdBy')
+    .populate('seats')
+    .populate('checkedInSeats')
     .then(notFound(res))
     .then((table) => table ? table.view() : null)
     .then(success(res))
@@ -45,4 +47,14 @@ export const destroy = ({ user, params }, res, next) =>
     .then(authorOrAdmin(res, user, 'createdBy'))
     .then((table) => table ? table.remove() : null)
     .then(success(res, 204))
+    .catch(next)
+
+export const findByGuest = ({ params }, res, next) =>
+  Table.findOne({seats: {$elemMatch: {$in: params.id}}})
+    .populate('createdBy')
+    .populate('seats')
+    .populate('checkedInSeats')
+    .then(notFound(res))
+    .then((table) => table ? table.view() : null)
+    .then(success(res))
     .catch(next)
